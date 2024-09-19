@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Airtable from 'airtable';
+import { format } from 'date-fns';
 
 // Initialize Airtable with API key
 const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
@@ -59,7 +60,7 @@ export async function POST(req: NextRequest) {
     ).create([
       {
         fields: {
-          Date: date,
+          Date: format(new Date(date), 'MM/dd/yyyy'),
           Project: [projectId],
           'Team Member': [teamMemberId],
           "Yesterday's Status": yesterdayStatus,
